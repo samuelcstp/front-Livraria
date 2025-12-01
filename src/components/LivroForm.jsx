@@ -1,31 +1,36 @@
-// frontend/src/components/LivroForm.jsx (AJUSTADO)
+// frontend/src/components/LivroForm.jsx (COM UPLOAD DE ARQUIVO)
 import React, { useState, useEffect } from 'react';
 import './LivroForm.css';
 
 const LivroForm = ({ livro, onSubmit, onCancel }) => {
-  // 💡 Inicialização Segura com Optional Chaining (livro?.prop)
+  // 💡 1. Estado para dados de texto (mantido)
   const [formData, setFormData] = useState({
     titulo: livro?.titulo || '',
     autor: livro?.autor || '',
-    categoria: livro?.categoria || '', // 👈 CAMPO CRÍTICO ADICIONADO
+    categoria: livro?.categoria || '',
     ano: livro?.ano || '',
     editora: livro?.editora || '',
-    capa_url: livro?.capa_url || '' // CAMPO URL ADICIONADO
+    // Removido capa_url do formData de texto
   });
 
+  // 💡 2. NOVO ESTADO: Para armazenar o OBJETO File selecionado
+  const [capaFile, setCapaFile] = useState(null); 
+  
+  // 💡 3. Estado opcional para exibir o caminho da capa existente (se for edição)
+  const [existingCapaCaminho, setExistingCapaCaminho] = useState(livro?.capa_caminho || null);
+
   useEffect(() => {
-    // 💡 Usa useEffect apenas para re-popular se 'livro' mudar
     if (livro) {
       setFormData({
         titulo: livro.titulo || '',
         autor: livro.autor || '',
-        categoria: livro.categoria || '', // 👈 CAMPO CRÍTICO NO UPDATE
+        categoria: livro.categoria || '',
         ano: livro.ano || '',
         editora: livro.editora || '',
-        capa_url: livro.capa_url || ''
       });
+      // 💡 Atualiza o caminho existente (se houver)
+      setExistingCapaCaminho(livro.capa_caminho || null);
     }
-    // Não precisa de 'else' pois o estado inicial já usa o livro, se existir.
   }, [livro]);
 
   const handleChange = (e) => {
@@ -33,9 +38,32 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 💡 NOVO HANDLER para o input file
+  const handleFileChange = (e) => {
+    // Pega o primeiro arquivo do FileList
+    setCapaFile(e.target.files[0]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    
+    // 💥 MÁGICA DO UPLOAD: Cria o objeto FormData
+    const dataToSend = new FormData();
+
+    // 1. Adiciona todos os campos de texto
+    Object.keys(formData).forEach(key => {
+      dataToSend.append(key, formData[key]);
+    });
+
+    // 2. Adiciona o arquivo, se um novo foi selecionado
+    if (capaFile) {
+        // O nome 'capaFile' DEVE ser o mesmo usado no Multer (upload.single('capaFile'))
+        dataToSend.append('capaFile', capaFile); 
+    }
+    
+    // O backend (controller) já sabe se é UPDATE ou CREATE,
+    // mas o onSubmit agora envia o objeto FormData
+    onSubmit(dataToSend); 
   };
 
   return (
@@ -44,26 +72,22 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
         <h2>{livro ? 'Editar Livro' : 'Novo Livro'}</h2>
         <form onSubmit={handleSubmit}>
           
-          {/* TÍTULO */}
+          {/* ... Campos de Título, Autor, Categoria, Ano, Editora (Mantidos) ... */}
           <div className="input-group">
             <label htmlFor="titulo">Título *</label>
             <input type="text" id="titulo" name="titulo" value={formData.titulo} onChange={handleChange} required />
           </div>
 
-          {/* AUTOR */}
           <div className="input-group">
             <label htmlFor="autor">Autor *</label>
             <input type="text" id="autor" name="autor" value={formData.autor} onChange={handleChange} required />
           </div>
 
-          {/* 👈 CAMPO CATEGORIA ADICIONADO */}
           <div className="input-group">
             <label htmlFor="categoria">Categoria *</label>
             <input type="text" id="categoria" name="categoria" value={formData.categoria} onChange={handleChange} required />
           </div>
-          {/* FIM CAMPO CATEGORIA */}
 
-          {/* ANO */}
           <div className="input-group">
             <label htmlFor="ano">Ano *</label>
             <input
@@ -78,18 +102,26 @@ const LivroForm = ({ livro, onSubmit, onCancel }) => {
             />
           </div>
 
-          {/* EDITORA */}
           <div className="input-group">
             <label htmlFor="editora">Editora</label>
             <input type="text" id="editora" name="editora" value={formData.editora} onChange={handleChange} />
           </div>
-
-          {/* URL DA CAPA */}
+          
+          {/* 💡 NOVO INPUT DE ARQUIVO */}
           <div className="input-group">
-            <label htmlFor="capa_url">URL da Capa</label>
-            <input type="url" id="capa_url" name="capa_url" value={formData.capa_url} onChange={handleChange} placeholder="Ex: http://sitedeimagem.com/capa.jpg" />
+            <label htmlFor="capaFile">Capa do Livro {livro ? '(Selecione para mudar)' : ''}</label>
+            <input 
+              type="file" 
+              id="capaFile" 
+              name="capaFile" // Nome do campo
+              accept="image/*" // Aceita apenas imagens
+              onChange={handleFileChange} 
+            />
+            {/* Exibe o nome do arquivo selecionado ou o caminho existente */}
+            {(capaFile && <small>Arquivo selecionado: **{capaFile.name}**</small>) ||
+             (existingCapaCaminho && <small>Capa existente salva: **{existingCapaCaminho}**</small>)}
           </div>
-          {/* FIM URL DA CAPA */}
+          {/* FIM INPUT DE ARQUIVO */}
 
 
           <div className="form-actions">

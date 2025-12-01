@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  /* Mantém a máscara escura */
   background-color: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
@@ -13,13 +14,24 @@
 }
 
 .livro-form-container {
-  background: white;
+  /* 💡 Fundo do formulário: Usa a cor secundária (que muda com o tema) */
+  background: var(--color-background-secondary);
+  /* 💡 Cor do texto: Usa a cor primária de texto */
+  color: var(--color-text-primary);
+  
+  /* 💡 ADICIONANDO CONTRASTE: Sombra adaptável */
+  box-shadow: 0 4px 15px var(--color-card-shadow); 
+  border: 1px solid var(--color-border); /* Borda sutil */
+  
   padding: 30px;
   border-radius: 8px;
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
+  
+  /* Transição para suavizar a mudança de tema */
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .livro-form-container h2 {

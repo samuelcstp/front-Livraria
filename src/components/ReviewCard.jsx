@@ -2,11 +2,24 @@
 import React from 'react';
 import './ReviewCard.css'; // Crie este CSS depois
 
-// 🚀 CORRIGIDO: Agora recebe o objeto 'livro' completo, não apenas o título.
+// 💡 URL BASE DO SEU BACKEND (Deve ser a mesma usada no LivroCard.jsx)
+const BACKEND_BASE_URL = 'http://localhost:3333'; 
+
 const ReviewCard = ({ review, livro, onEdit, onDelete }) => {
     
-    // Desestrutura o que precisamos do objeto livro
-    const { titulo, capa_url } = livro; 
+    // 🛑 AJUSTE CRÍTICO 1: Desestrutura a nova propriedade capa_caminho
+    const { titulo, capa_caminho } = livro; 
+
+    // 🛑 AJUSTE CRÍTICO 2: Monta a URL completa para a imagem
+    const capaSrc = capa_caminho 
+      ? `${BACKEND_BASE_URL}/${capa_caminho}`
+      : '/images/placeholder-cover.png'; // Fallback
+
+    const handleImageError = (e) => {
+        // Fallback em caso de erro de carregamento (ex: arquivo deletado no servidor)
+        e.target.onerror = null; 
+        e.target.src = '/images/placeholder-cover.png';
+    };
     
     const renderStars = (nota) => {
         // Arredonda para o número de estrelas cheias (máx 5)
@@ -21,18 +34,15 @@ const ReviewCard = ({ review, livro, onEdit, onDelete }) => {
             <div className="review-content">
                 
                 {/* 🚀 Adiciona a Imagem da Capa */}
-                {capa_url && (
-                    <img 
-                        src={capa_url} 
-                        alt={`Capa do livro ${titulo}`} 
-                        className="book-cover" 
-                        // Exemplo de placeholder para garantir que algo apareça
-                        onError={(e) => { e.target.onerror = null; e.target.src="http://googleusercontent.com/image_collection/image_retrieval/some_id_string" }}
-                    />
-                )}
+                {/* O check é feito com base no capaSrc, que tem o fallback */}
+                <img 
+                    src={capaSrc} 
+                    alt={`Capa do livro ${titulo}`} 
+                    className="book-cover" 
+                    onError={handleImageError} // Usa o handler de erro
+                />
                 
                 <div className="review-details">
-                    {/* 🚀 Usa o título do objeto livro */}
                     <h3>{titulo}</h3> 
                     
                     <div className="review-rating">
@@ -40,7 +50,6 @@ const ReviewCard = ({ review, livro, onEdit, onDelete }) => {
                         <span className="score">({review.nota}/10)</span>
                     </div>
                     
-                    {/* 🚀 CORRIGIDO: Exibe review.review para o texto */}
                     <p className="review-text">{review.review || 'Nenhum comentário adicionado.'}</p> 
                 </div>
 

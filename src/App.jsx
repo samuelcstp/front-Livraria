@@ -1,4 +1,4 @@
-// frontend/src/App.jsx (CORRIGIDO)
+// frontend/src/App.jsx (COMPLETO E FUNCIONAL)
 
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
@@ -11,10 +11,9 @@ import Home from './pages/Home'
 import Livros from './pages/Livros'
 import Reviews from './pages/Reviews'
 import './App.css'
-// ⚠️ Nota: A lógica CSS de tema deve ser adicionada ao seu App.css!
 
 // -----------------------------------------------------------
-// 1. CONTEXTO E HOOK DE TEMA (ESTES DEVEM ESTAR NO TOPO DO ARQUIVO!)
+// 1. CONTEXTO E HOOK DE TEMA
 // -----------------------------------------------------------
 const ThemeContext = createContext();
 
@@ -57,8 +56,8 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-// Hook customizado para fácil consumo (TOP LEVEL)
-export const useTheme = () => useContext(ThemeContext); // 👈 Deve estar aqui!
+// Hook customizado para fácil consumo
+export const useTheme = () => useContext(ThemeContext); 
 
 // -----------------------------------------------------------
 // 2. COMPONENTE APP

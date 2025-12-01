@@ -1,4 +1,4 @@
-// frontend/src/pages/Livros.jsx
+// frontend/src/pages/Livros.jsx (NÃO PRECISA DE GRANDES ALTERAÇÕES AQUI)
 import React, { useState, useEffect } from 'react';
 import { livrosService } from '../services/livrosService';
 import LivroCard from '../components/LivroCard';
@@ -57,11 +57,14 @@ const Livros = () => {
   };
 
   const handleSubmit = async (formData) => {
+    // 💡 O formData AQUI é o objeto FormData nativo, pronto para o upload.
     try {
       if (editingLivro) {
+        // A camada de serviço (livrosService.atualizar) fará o trabalho pesado
         await livrosService.atualizar(editingLivro.id, formData);
         showSuccess('Livro atualizado com sucesso!');
       } else {
+        // A camada de serviço (livrosService.criar) fará o trabalho pesado
         await livrosService.criar(formData);
         showSuccess('Livro criado com sucesso!');
       }
@@ -69,7 +72,8 @@ const Livros = () => {
       setEditingLivro(null);
       carregarLivros();
     } catch (err) {
-      setError(err.response?.data?.erro || 'Erro ao salvar livro.');
+      // O backend pode retornar o erro em .response.data.erro
+      setError(err.response?.data?.erro || 'Erro ao salvar livro.'); 
       console.error(err);
     }
   };

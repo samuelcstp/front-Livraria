@@ -1,14 +1,14 @@
 // frontend/src/pages/Reviews.jsx
 import React, { useState, useEffect } from 'react';
 import { reviewsService } from '../services/reviewsService';
-import { livrosService } from '../services/livrosService'; // Para buscar o título do livro
-import ReviewCard from '../components/ReviewCard'; // Vamos criar este
-import ReviewForm from '../components/ReviewForm'; // Acabamos de criar
+import { livrosService } from '../services/livrosService'; 
+import ReviewCard from '../components/ReviewCard';
+import ReviewForm from '../components/ReviewForm'; 
 import './Reviews.css';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
-  const [livros, setLivros] = useState({}); // Para mapear livro_id para título
+  const [livros, setLivros] = useState({}); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -35,7 +35,8 @@ const Reviews = () => {
         acc[livro.id] = {
             titulo: livro.titulo,
             autor: livro.autor,
-            capa_url: livro.capa_url // 👈 Incluindo a URL
+            // 🛑 AJUSTE CRÍTICO 1: Usar a nova propriedade 'capa_caminho'
+            capa_caminho: livro.capa_caminho 
         };
         return acc;
       }, {});
@@ -136,8 +137,8 @@ const Reviews = () => {
             <ReviewCard
               key={review.id}
               review={review}
-              // 🚀 PASSA o objeto de livro que inclui título e capa
-              livro={livros[review.livro_id] || { titulo: 'Livro Desconhecido', capa_url: null }} 
+              // 🛑 AJUSTE CRÍTICO 2: Usar 'capa_caminho' no objeto fallback
+              livro={livros[review.livro_id] || { titulo: 'Livro Desconhecido', capa_caminho: null }} 
               onEdit={handleEdit}
               onDelete={handleDelete}
             />
@@ -147,7 +148,6 @@ const Reviews = () => {
 
       {showForm && (
         <ReviewForm
-          // 🚀 AJUSTE: Passar a review com livroId e review (se o backend retornar assim)
           review={editingReview} 
           onSubmit={handleSubmit}
           onCancel={handleCancel}

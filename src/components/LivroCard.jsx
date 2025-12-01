@@ -1,20 +1,34 @@
-// frontend/src/components/LivroCard.jsx (AJUSTADO E LIMPO)
+// frontend/src/components/LivroCard.jsx (CONFIRMANDO A LÓGICA)
 import React from 'react';
 import './LivroCard.css';
 
+const BACKEND_BASE_URL = 'http://localhost:3333'; 
+
 const LivroCard = ({ livro, onEdit, onDelete }) => {
+  
+  // Condição: Usa o caminho do backend SOMENTE se a string não for vazia, null, ou undefined.
+  const isCapaPresente = livro.capa_caminho && livro.capa_caminho.length > 0;
+  
+  const capaSrc = isCapaPresente
+    ? `${BACKEND_BASE_URL}/${livro.capa_caminho}`
+    : '/images/placeholder-cover.png';
+
+  const handleImageError = (e) => {
+    // Garante que o handler de erro não crie um loop infinito
+    e.target.onerror = null; 
+    // Define a imagem de fallback para o caso de a URL do servidor falhar
+    e.target.src = '/images/placeholder-cover.png'; 
+  };
+
   return (
     <div className="livro-card">
-      
-      {/* Imagem da Capa: Só renderiza se houver URL válida */}
-      {livro.capa_url && (
-        <div className="livro-capa">
-          <img 
-            src={livro.capa_url} 
-            alt={`Capa do livro ${livro.titulo}`} 
-          />
-        </div>
-      )}
+      <div className="livro-capa">
+        <img 
+          src={capaSrc} 
+          alt={`Capa do livro ${livro.titulo}`}
+          onError={handleImageError} // Usa a função de tratamento de erro
+        />
+      </div>
 
       <h3>{livro.titulo}</h3>
       
