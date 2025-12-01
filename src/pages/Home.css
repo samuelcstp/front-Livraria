@@ -1,37 +1,39 @@
-/* frontend/src/pages/Home.css */
+/* frontend/src/pages/Home.css (CORRIGIDO PARA TEMA CLARO/ESCURO) */
 .home-container {
   max-width: 1000px;
   margin: 0 auto;
 }
 
 .welcome-card {
-  background: white;
+  /* 💥 CORREÇÃO: Usar variável do tema para o fundo do card */
+  background: var(--color-background-secondary); 
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  /* 💥 CORREÇÃO: Usar variável do tema para a sombra do card */
+  box-shadow: 0 2px 10px var(--color-card-shadow);
   text-align: center;
+  transition: background 0.3s, box-shadow 0.3s; /* Adicionar transição */
 }
 
 .welcome-card h1 {
   font-size: 32px;
   margin-bottom: 15px;
-  color: #333;
+  /* 💥 CORREÇÃO: Usar variável do tema para cor do título */
+  color: var(--color-text-primary); 
 }
 
 .subtitle {
   font-size: 18px;
-  color: #666;
+  /* 💥 CORREÇÃO: Usar variável do tema para cor do subtítulo */
+  color: var(--color-text-primary); 
   margin-bottom: 20px;
 }
 
 .welcome-card p {
   font-size: 16px;
-  color: #666;
+  /* 💥 CORREÇÃO: Usar variável do tema para cor do parágrafo */
+  color: var(--color-text-primary); 
   margin-bottom: 15px;
-}
-
-.cta {
-  margin-top: 30px;
 }
 
 .btn-large {
@@ -39,4 +41,11 @@
   padding: 15px 40px;
   text-decoration: none;
   display: inline-block;
+}
+
+.cta {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
 }

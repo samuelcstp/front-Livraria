@@ -1,4 +1,4 @@
-// frontend/src/pages/Home.jsx (continuação)
+// frontend/src/pages/Home.jsx (ATUALIZADO)
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -19,8 +19,13 @@ const Home = () => {
 
           <div className="cta">
             <Link to="/livros" className="btn btn-primary btn-large">
-              Ver Meus Livros
+              Ver Livros
             </Link>
+
+            <Link to="/reviews" className="btn btn-secondary btn-large reviews-btn">
+              ⭐ Minhas Reviews
+            </Link>
+            
           </div>
         </div>
       </div>

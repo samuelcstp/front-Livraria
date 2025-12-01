@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 import './Auth.css';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     email: '',
     password: ''
   });

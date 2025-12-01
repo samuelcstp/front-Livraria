@@ -1,11 +1,74 @@
 /* frontend/src/App.css */
+
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* 🚀 Adição: Garante que o container principal use o tema */
+  background-color: var(--color-background-primary); 
 }
+
+/* frontend/src/App.css (Adição Necessária) */
 
 .main-content {
   flex: 1;
   padding: 20px 0;
+  
+  /* 🚀 CORREÇÃO: Aplique a cor de fundo primária ou garanta que não haja um background estático */
+  background-color: var(--color-background-primary); 
 }
+
+/* Opcional: Se houver um .container que envolve o conteúdo, ele também pode precisar de ajuste */
+.container {
+    /* Se o container estava branco, use a variável */
+    background-color: var(--color-background-primary); 
+    /* Outros estilos do container (margin, max-width, etc.) */
+}
+
+/* frontend/src/App.css */
+
+/* -------------------------------------- */
+/* TEMAS: Definição de Variáveis de Cor */
+/* -------------------------------------- */
+
+/* Tema Claro (Padrão) */
+:root, html.light {
+    --color-background-primary: #f8f9fa; 
+    --color-background-secondary: #ffffff; 
+    --color-text-primary: #212529; 
+    --color-border: #e9ecef;
+    --color-link: #007bff;
+    --color-card-shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* Tema Escuro */
+html.dark {
+    --color-background-primary: #121212;
+    --color-background-secondary: #1e1e1e;
+    --color-text-primary: #f8f9fa;
+    --color-border: #333333;
+    --color-link: #90caf9;
+    --color-card-shadow: rgba(255, 255, 255, 0.1);
+}
+
+/* -------------------------------------- */
+/* Estilos Globais Aplicando Variáveis */
+/* -------------------------------------- */
+
+body {
+    background-color: var(--color-background-primary);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s, color 0.3s;
+    min-height: 100vh;
+}
+
+/* Exemplo de Estilo para Cards/Containers que mudam de fundo */
+.auth-card, .review-card {
+    background-color: var(--color-background-secondary); /* Usa a variável */
+    border: 1px solid var(--color-border); /* Usa a variável */
+    box-shadow: 0 2px 4px var(--color-card-shadow); /* Usa a variável */
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* ... e aplique as variáveis em outros componentes (botões, inputs, etc.) */
+
