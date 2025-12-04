@@ -1,28 +1,17 @@
-//src/contexts/AuthContext.jsx
-import React, { createContext, useState, useContext, useEffect } from 'react';
+// src/contexts/AuthContext.jsx
+
+import React, { createContext, useState, useContext, useMemo } from 'react'; // 💡 useMemo para otimização
 import { authService } from '../services/authService';
 
-/*
-  O AuthContext será responsável por:
-  - Guardar informações do usuário
-  - Verificar se existe um token válido
-  - Fazer login e logout
-  - Cadastrar usuários
-  - Evitar que páginas privadas carreguem sem autenticação
-*/
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // usado para verificar sessão no carregamento
-
-  // Executa uma vez ao carregar a aplicação
+  const [loading, setLoading] = useState(true);
   
-  useEffect(() => {
-    checkAuth();
-  }, []);
+  // 🛑 REMOVEMOS O useEffect QUE CHAMAVA checkAuth AQUI.
+  // A chamada inicial de checkAuth será feita condicionalmente pelo componente Header.
 
-  // Verifica se existe sessão ativa
   const checkAuth = async () => {
     try {
       const userData = await authService.getMe();
@@ -34,20 +23,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Login -> armazena usuário retornado
   const login = async (credentials) => {
     const data = await authService.login(credentials);
     setUser(data.user);
     return data;
   };
 
-  // Registro -> apenas retorna resultado
   const register = async (userData) => {
     const data = await authService.register(userData);
+    // Não faz login automático após o registro
     return data;
   };
 
-  // Logout -> limpa sessão
   const logout = async () => {
     try {
       await authService.logout();
@@ -56,14 +43,37 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // 💡 Solicita link de recuperação
+  const forgotPassword = async (email) => {
+    return authService.forgotPassword(email);
+  };
+
+  // 💡 Redefine a senha com token
+  const resetPassword = async (token, newPassword) => {
+    return authService.resetPassword(token, newPassword);
+  };
+
+  // Otimização: Garantir que o objeto de valor do contexto só mude
+  // quando user, loading ou as funções mudarem (as funções são estáveis)
+  const contextValue = useMemo(() => ({
+    user, 
+    loading, 
+    login, 
+    register, 
+    logout, 
+    checkAuth,
+    forgotPassword, 
+    resetPassword  
+  }), [user, loading]); 
+
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, checkAuth }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Hook para acessar facilmente o AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

@@ -1,15 +1,30 @@
-// frontend/src/components/Header.jsx (MODIFICADO COM ThemeToggle)
+// frontend/src/components/Header.jsx (MODIFICADO COM LÓGICA DE SESSÃO CONDICIONAL)
 
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react'; // 💡 Importar useEffect
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // 💡 Importar useLocation
 import { useAuth } from '../contexts/AuthContext';
-// 🚀 Importar o botão de tema
 import ThemeToggle from './ThemeToggle'; 
 import './Header.css';
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const location = useLocation(); // 💡 Hook para saber a rota atual
+  const { user, logout, checkAuth } = useAuth(); // 💡 Incluir checkAuth
   const navigate = useNavigate();
+
+  // Define quais rotas são de autenticação e devem IGNORAR a verificação de sessão
+  const isAuthRoute = 
+      location.pathname === '/login' ||
+      location.pathname === '/register' ||
+      location.pathname === '/forgot-password' ||
+      location.pathname.startsWith('/reset-password'); 
+
+  // 💡 LÓGICA DE VERIFICAÇÃO DE SESSÃO (Substitui o useEffect no AuthContext)
+  useEffect(() => {
+    // Se o usuário NÃO estiver em uma rota de autenticação, verifica o login
+    if (!isAuthRoute) {
+        checkAuth();
+    }
+  }, [isAuthRoute, checkAuth]); // Depende da rota e da função checkAuth (estável)
 
   const handleLogout = async () => {
     await logout();
@@ -26,12 +41,11 @@ const Header = () => {
         <nav className="nav">
           {user ? (
             <>
-              {/* Links de navegação */}
+              {/* Links de navegação logada */}
               <Link to="/" className="nav-link">Início</Link>
               <Link to="/livros" className="nav-link">Livros</Link>
               <Link to="/reviews" className="nav-link">Reviews</Link>
               
-              {/* 🚀 Botão de Tema na navegação logada */}
               <ThemeToggle />
               
               <div className="user-info">
@@ -43,11 +57,10 @@ const Header = () => {
             </>
           ) : (
             <>
-              {/* Links de navegação */}
+              {/* Links de navegação deslogada (visível nas rotas de auth) */}
               <Link to="/login" className="nav-link">Login</Link>
               <Link to="/register" className="nav-link">Registrar</Link>
               
-              {/* 🚀 Botão de Tema na navegação deslogada (visível no login/register) */}
               <ThemeToggle />
             </>
           )}

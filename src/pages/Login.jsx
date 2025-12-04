@@ -1,11 +1,12 @@
 // frontend/src/pages/Login.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Auth.css';
 
 const Login = () => {
-const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
@@ -13,6 +14,9 @@ const [formData, setFormData] = useState({
   const [loading, setLoading] = useState(false);
   const { login, user } = useAuth();
   const navigate = useNavigate();
+  
+  // 💡 NOVO ESTADO: Controla a visibilidade da senha
+  const [showPassword, setShowPassword] = useState(false); 
 
   // Redireciona se já estiver autenticado
   useEffect(() => {
@@ -26,6 +30,11 @@ const [formData, setFormData] = useState({
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 💡 NOVA FUNÇÃO: Alternar a visibilidade
+  const handleTogglePassword = () => {
+    setShowPassword(prev => !prev);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -35,7 +44,8 @@ const [formData, setFormData] = useState({
       await login(formData);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.erro || 'Erro ao fazer login.');
+      // Usando err.message se o erro não for de uma resposta HTTP com JSON
+      setError(err.message || 'Erro ao fazer login.'); 
     } finally {
       setLoading(false);
     }
@@ -61,10 +71,12 @@ const [formData, setFormData] = useState({
             />
           </div>
 
-          <div className="input-group">
+          {/* 💡 CAMPO DE SENHA COM TOGGLE */}
+          <div className="input-group password-group"> 
             <label htmlFor="password">Senha</label>
             <input
-              type="password"
+              // 💡 TIPO CONTROLADO PELO ESTADO
+              type={showPassword ? 'text' : 'password'}
               id="password"
               name="password"
               value={formData.password}
@@ -72,8 +84,21 @@ const [formData, setFormData] = useState({
               required
               disabled={loading}
             />
+            <button 
+                type="button" 
+                className="toggle-password-btn"
+                onClick={handleTogglePassword}
+                title={showPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
+                disabled={loading}
+            >
+               {showPassword ? '🔓' : '🔒'}
+            </button>
           </div>
-
+          
+          <p className="forgot-password-link">
+            <Link to="/forgot-password">Esqueci minha senha</Link>
+          </p>
+          
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
             {loading ? 'Entrando...' : 'Entrar'}
           </button>

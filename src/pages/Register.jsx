@@ -16,6 +16,9 @@ const Register = () => {
   const { register, user } = useAuth();
   const navigate = useNavigate();
 
+  // 💡 NOVO ESTADO: Controla a visibilidade das senhas
+  const [showPassword, setShowPassword] = useState(false);
+
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -27,6 +30,11 @@ const Register = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // 💡 FUNÇÃO: Alternar a visibilidade
+  const handleTogglePassword = () => {
+    setShowPassword(prev => !prev);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -35,6 +43,12 @@ const Register = () => {
       setError('As senhas não coincidem');
       return;
     }
+    
+    // 💡 Adiciona validação de tamanho da senha (se não estiver no backend)
+    if (formData.password.length < 6) {
+        setError('A senha deve ter pelo menos 6 caracteres.');
+        return;
+    }
 
     setLoading(true);
     try {
@@ -42,7 +56,8 @@ const Register = () => {
       await register(registerData);
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.erro || 'Erro ao criar conta.');
+      // Usando 'err.message' se não houver 'err.response.data.erro'
+      setError(err.message || 'Erro ao criar conta.'); 
     } finally {
       setLoading(false);
     }
@@ -81,10 +96,12 @@ const Register = () => {
             />
           </div>
 
-          <div className="input-group">
+          {/* 💡 CAMPO DE SENHA COM TOGGLE */}
+          <div className="input-group password-group">
             <label htmlFor="password">Senha</label>
             <input
-              type="password"
+              // 💡 Tipo controlado pelo estado
+              type={showPassword ? 'text' : 'password'}
               id="password"
               name="password"
               value={formData.password}
@@ -93,12 +110,24 @@ const Register = () => {
               minLength="6"
               disabled={loading}
             />
+            <button 
+                type="button" 
+                className="toggle-password-btn"
+                onClick={handleTogglePassword}
+                title={showPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
+                disabled={loading}
+            >
+               {/* 💡 Emoji de Cadeado: 🔒 Ocultar / 🔓 Mostrar */}
+               {showPassword ? '🔒' : '🔓'}
+            </button>
           </div>
 
-          <div className="input-group">
+          {/* 💡 CAMPO DE CONFIRMAR SENHA COM TOGGLE */}
+          <div className="input-group password-group">
             <label htmlFor="confirmPassword">Confirmar Senha</label>
             <input
-              type="password"
+              // 💡 Tipo controlado pelo estado
+              type={showPassword ? 'text' : 'password'}
               id="confirmPassword"
               name="confirmPassword"
               value={formData.confirmPassword}
@@ -107,6 +136,16 @@ const Register = () => {
               minLength="6"
               disabled={loading}
             />
+             <button 
+                type="button" 
+                className="toggle-password-btn"
+                onClick={handleTogglePassword}
+                title={showPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
+                disabled={loading}
+            >
+               {/* 💡 Emoji de Cadeado: 🔒 Ocultar / 🔓 Mostrar */}
+               {showPassword ? '🔒' : '🔓'}
+            </button>
           </div>
 
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
