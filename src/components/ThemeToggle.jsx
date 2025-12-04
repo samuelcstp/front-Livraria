@@ -1,6 +1,5 @@
-// frontend/src/components/ThemeToggle.jsx
 import React from 'react';
-import { useTheme } from '../App'; // Importa o hook do App.jsx
+import { useTheme } from '../App'; 
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
@@ -9,7 +8,6 @@ const ThemeToggle = () => {
     <button 
       onClick={toggleTheme} 
       className="btn btn-theme-toggle"
-      // Usamos variáveis CSS aqui para que o botão se adapte ao tema
       style={{
         backgroundColor: 'var(--color-background-secondary)',
         color: 'var(--color-text-primary)',

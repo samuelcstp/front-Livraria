@@ -1,14 +1,12 @@
-// frontend/src/components/Header.jsx (MODIFICADO COM LÓGICA DE SESSÃO CONDICIONAL)
-
-import React, { useEffect } from 'react'; // 💡 Importar useEffect
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // 💡 Importar useLocation
+import React, { useEffect } from 'react'; 
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import ThemeToggle from './ThemeToggle'; 
 import './Header.css';
 
 const Header = () => {
-  const location = useLocation(); // 💡 Hook para saber a rota atual
-  const { user, logout, checkAuth } = useAuth(); // 💡 Incluir checkAuth
+  const location = useLocation(); 
+  const { user, logout, checkAuth } = useAuth(); 
   const navigate = useNavigate();
 
   // Define quais rotas são de autenticação e devem IGNORAR a verificação de sessão
@@ -18,7 +16,7 @@ const Header = () => {
       location.pathname === '/forgot-password' ||
       location.pathname.startsWith('/reset-password'); 
 
-  // 💡 LÓGICA DE VERIFICAÇÃO DE SESSÃO (Substitui o useEffect no AuthContext)
+
   useEffect(() => {
     // Se o usuário NÃO estiver em uma rota de autenticação, verifica o login
     if (!isAuthRoute) {

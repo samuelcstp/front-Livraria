@@ -1,4 +1,3 @@
-// frontend/src/pages/Livros.jsx (NÃO PRECISA DE GRANDES ALTERAÇÕES AQUI)
 import React, { useState, useEffect } from 'react';
 import { livrosService } from '../services/livrosService';
 import LivroCard from '../components/LivroCard';
@@ -57,7 +56,6 @@ const Livros = () => {
   };
 
   const handleSubmit = async (formData) => {
-    // 💡 O formData AQUI é o objeto FormData nativo, pronto para o upload.
     try {
       if (editingLivro) {
         // A camada de serviço (livrosService.atualizar) fará o trabalho pesado

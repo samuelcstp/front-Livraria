@@ -1,16 +1,12 @@
-// frontend/src/components/ReviewCard.jsx
 import React from 'react';
-import './ReviewCard.css'; // Crie este CSS depois
+import './ReviewCard.css';
 
-// 💡 URL BASE DO SEU BACKEND (Deve ser a mesma usada no LivroCard.jsx)
 const BACKEND_BASE_URL = 'http://localhost:3333'; 
 
 const ReviewCard = ({ review, livro, onEdit, onDelete }) => {
-    
-    // 🛑 AJUSTE CRÍTICO 1: Desestrutura a nova propriedade capa_caminho
+
     const { titulo, capa_caminho } = livro; 
 
-    // 🛑 AJUSTE CRÍTICO 2: Monta a URL completa para a imagem
     const capaSrc = capa_caminho 
       ? `${BACKEND_BASE_URL}/${capa_caminho}`
       : '/images/placeholder-cover.png'; // Fallback
@@ -32,9 +28,6 @@ const ReviewCard = ({ review, livro, onEdit, onDelete }) => {
         <div className="review-card">
             
             <div className="review-content">
-                
-                {/* 🚀 Adiciona a Imagem da Capa */}
-                {/* O check é feito com base no capaSrc, que tem o fallback */}
                 <img 
                     src={capaSrc} 
                     alt={`Capa do livro ${titulo}`} 

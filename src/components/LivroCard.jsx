@@ -1,4 +1,3 @@
-// frontend/src/components/LivroCard.jsx (CONFIRMANDO A LÓGICA)
 import React from 'react';
 import './LivroCard.css';
 

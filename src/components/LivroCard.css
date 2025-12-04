@@ -1,29 +1,23 @@
-/* frontend/src/components/LivroCard.css */
 .livro-card {
-  /* 💥 CORREÇÃO: Usar variável do tema para o fundo do card */
   background: var(--color-background-secondary);
   border-radius: 8px;
-  /* 💥 CORREÇÃO: Usar variável do tema para a sombra */
   box-shadow: 0 2px 4px var(--color-card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s; /* Adicionando transição de fundo */
 }
 
 .livro-card:hover {
   transform: translateY(-2px);
-  /* 💥 CORREÇÃO: Usar variável do tema para a sombra ao hover */
   box-shadow: 0 4px 8px var(--color-card-shadow);
 }
 
 .livro-card h3 {
   margin: 0 0 15px 0;
   font-size: 20px;
-  /* 💥 CORREÇÃO: Usar variável do tema para a cor do texto */
   color: var(--color-text-primary);
 }
 
 .livro-card p {
   margin: 8px 0;
-  /* 💥 CORREÇÃO: Usar variável do tema para a cor do texto */
   color: var(--color-text-primary);
   font-size: 14px;
 }
@@ -51,6 +45,5 @@
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
-    /* 💥 CORREÇÃO: Usar variável do tema para a borda */
     border: 1px solid var(--color-border);
 }

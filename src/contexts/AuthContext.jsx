@@ -1,6 +1,4 @@
-// src/contexts/AuthContext.jsx
-
-import React, { createContext, useState, useContext, useMemo } from 'react'; // 💡 useMemo para otimização
+import React, { createContext, useState, useContext, useMemo } from 'react'; 
 import { authService } from '../services/authService';
 
 const AuthContext = createContext({});
@@ -9,9 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  // 🛑 REMOVEMOS O useEffect QUE CHAMAVA checkAuth AQUI.
-  // A chamada inicial de checkAuth será feita condicionalmente pelo componente Header.
-
   const checkAuth = async () => {
     try {
       const userData = await authService.getMe();
@@ -43,18 +38,16 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 💡 Solicita link de recuperação
+  //Solicita link de recuperação
   const forgotPassword = async (email) => {
     return authService.forgotPassword(email);
   };
 
-  // 💡 Redefine a senha com token
+  //Redefine a senha com token
   const resetPassword = async (token, newPassword) => {
     return authService.resetPassword(token, newPassword);
   };
 
-  // Otimização: Garantir que o objeto de valor do contexto só mude
-  // quando user, loading ou as funções mudarem (as funções são estáveis)
   const contextValue = useMemo(() => ({
     user, 
     loading, 

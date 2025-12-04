@@ -1,16 +1,12 @@
-// frontend/src/components/ReviewForm.jsx (FINALMENTE PADRONIZADO PARA O BACKEND)
 import React, { useState, useEffect } from 'react';
 import { livrosService } from '../services/livrosService'; 
 import './ReviewForm.css'; 
 
-// Renomeamos a prop para propReview para evitar conflito com o campo 'review'
 const ReviewForm = ({ review: propReview, onSubmit, onCancel }) => { 
     
     const [formData, setFormData] = useState({
-        // 🚀 CORRIGIDO: livroId (CamelCase)
         livroId: propReview?.livroId || '', 
         nota: propReview?.nota || 5,         
-        // 🚀 CORRIGIDO: review (Campo de texto, CamelCase)
         review: propReview?.review || ''       
     });
     const [livros, setLivros] = useState([]);
@@ -21,11 +17,11 @@ const ReviewForm = ({ review: propReview, onSubmit, onCancel }) => {
         try {
             const data = await livrosService.listar();
             setLivros(data);
-            setLoadingLivros(false); // 🚀 Adicionar aqui para sucesso
+            setLoadingLivros(false);
         } catch (err) {
             console.error("Erro ao carregar livros para o formulário:", err);
-            setLivros([]); // Garante que a lista não seja nula
-            setLoadingLivros(false); // 🚀 Adicionar aqui para erro
+            setLivros([]); 
+            setLoadingLivros(false);
         } 
     };
     fetchLivros();
@@ -61,7 +57,7 @@ const ReviewForm = ({ review: propReview, onSubmit, onCancel }) => {
                         <label htmlFor="livroId">Livro *</label>
                         <select 
                             id="livroId" 
-                            name="livroId" // 🚀 NAME: livroId
+                            name="livroId" 
                             value={formData.livroId} 
                             onChange={handleChange} 
                             required 
@@ -77,7 +73,6 @@ const ReviewForm = ({ review: propReview, onSubmit, onCancel }) => {
                         {isEditing && <small>Não é possível mudar o livro em uma review existente.</small>}
                     </div>
 
-                    {/* NOTA (permanece 'nota') */}
                     <div className="input-group">
                         <label htmlFor="nota">Nota (1 a 10) *</label>
                         <input
@@ -97,7 +92,7 @@ const ReviewForm = ({ review: propReview, onSubmit, onCancel }) => {
                         <label htmlFor="review">Comentário</label>
                         <textarea
                             id="review"
-                            name="review" // 🚀 NAME: review
+                            name="review" 
                             value={formData.review} 
                             onChange={handleChange}
                             rows="4"

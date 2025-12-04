@@ -1,5 +1,3 @@
-/* frontend/src/components/Header.css (AJUSTE SUGERIDO) */
-
 /* Garante que o container interno use Flexbox para alinhar logo e navegação */
 .header-content {
     display: flex;
@@ -23,8 +21,6 @@
     align-items: center;
     gap: 15px; /* Espaçamento entre os links e o ThemeToggle/user-info */
 }
-
-/* ... (O restante do seu CSS Header.css) ... */
 
 .logo {
   text-decoration: none;

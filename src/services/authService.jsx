@@ -1,9 +1,6 @@
 import api from './api';
 
 export const authService = {
-    // ----------------------------------------------------
-    // MÉTODOS EXISTENTES (NADA FOI MUDADO AQUI)
-    // ----------------------------------------------------
     async register(userData) {
         const response = await api.post('/auth/register', userData);
         return response.data;
@@ -24,11 +21,6 @@ export const authService = {
         return response.data;
     },
     
-    // ----------------------------------------------------
-    // 💡 NOVOS MÉTODOS DE RECUPERAÇÃO DE SENHA
-    // ----------------------------------------------------
-
-    // Rota POST /auth/forgot-password: Envia o email para receber o link
     async forgotPassword(email) {
         // Envia o email no corpo da requisição POST
         const response = await api.post('/auth/forgot-password', { email });

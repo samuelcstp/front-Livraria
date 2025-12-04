@@ -1,14 +1,11 @@
-/* frontend/src/components/ReviewCard.css */
-
 .review-card {
-    /* 💥 SUBSTITUIÇÃO: Cores estáticas por variáveis de tema */
     background-color: var(--color-background-secondary); 
     border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px var(--color-card-shadow);
-    transition: transform 0.2s, box-shadow 0.2s; /* Adicionado box-shadow na transição */
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .review-card:hover {
@@ -17,36 +14,32 @@
     box-shadow: 0 4px 8px var(--color-card-shadow); 
 }
 
-/* 🚀 Novo Container Flex para alinhar imagem e detalhes */
 .review-content {
     display: flex;
     gap: 15px; /* Espaçamento entre a imagem e o texto */
     margin-bottom: 15px;
 }
 
-/* 🚀 Estilo da Imagem da Capa */
 .review-content .book-cover {
-    width: 100px; /* Largura Fixo */
-    height: 150px; /* Altura Fixo para manter proporção razoável */
+    width: 100px; 
+    height: 150px; 
     object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer (cortará se necessário) */
     border-radius: 4px;
     flex-shrink: 0; /* Impede que a imagem encolha se o espaço for limitado */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* 🚀 Estilo para a área de detalhes (Texto, Nota, etc.) */
+
 .review-details {
     flex-grow: 1; /* Permite que o texto ocupe o espaço restante */
 }
 
 
 .review-card h3 {
-    /* 💥 SUBSTITUIÇÃO: Cor de texto primária do tema */
     color: var(--color-text-primary);
     font-size: 1.3em;
     margin-top: 0;
     margin-bottom: 10px;
-    /* Linha de baixo: Pode ser a cor da borda ou uma cor secundária escura */
     border-bottom: 2px solid var(--color-border); 
     padding-bottom: 5px;
 }
@@ -57,19 +50,17 @@
 }
 
 .review-rating .stars {
-    color: #ffc107; /* Cor amarela para as estrelas */
+    color: #ffc107;
     font-size: 1.5em;
     margin-right: 10px;
 }
 
 .review-rating .score {
-    /* 💥 SUBSTITUIÇÃO: Cor de texto secundária (ou primária se preferir) */
     color: var(--color-text-primary); 
     font-weight: bold;
 }
 
 .review-text {
-    /* 💥 SUBSTITUIÇÃO: Cor de texto primária ou uma cor ligeiramente mais escura */
     color: var(--color-text-primary); 
     line-height: 1.6;
     margin-bottom: 15px;
@@ -79,10 +70,9 @@
 .card-actions {
     display: flex;
     gap: 10px;
-    justify-content: flex-end; /* Alinha botões à direita */
+    justify-content: flex-end;
 }
 
-/* Garante que os botões menores (btn-sm) sejam exibidos corretamente */
 .card-actions .btn {
     padding: 6px 12px;
     font-size: 0.85em;

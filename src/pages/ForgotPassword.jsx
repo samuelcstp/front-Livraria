@@ -1,7 +1,5 @@
-// frontend/src/pages/ForgotPassword.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// Assumindo que você tem um authService onde a função foi adicionada
 import { authService } from '../services/authService'; 
 import './Auth.css'; 
 

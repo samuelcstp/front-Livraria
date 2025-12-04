@@ -1,4 +1,3 @@
-// frontend/src/pages/Register.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -15,8 +14,6 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const { register, user } = useAuth();
   const navigate = useNavigate();
-
-  // 💡 NOVO ESTADO: Controla a visibilidade das senhas
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -30,7 +27,6 @@ const Register = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // 💡 FUNÇÃO: Alternar a visibilidade
   const handleTogglePassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -44,7 +40,6 @@ const Register = () => {
       return;
     }
     
-    // 💡 Adiciona validação de tamanho da senha (se não estiver no backend)
     if (formData.password.length < 6) {
         setError('A senha deve ter pelo menos 6 caracteres.');
         return;
@@ -96,7 +91,6 @@ const Register = () => {
             />
           </div>
 
-          {/* 💡 CAMPO DE SENHA COM TOGGLE */}
           <div className="input-group password-group">
             <label htmlFor="password">Senha</label>
             <input
@@ -117,16 +111,13 @@ const Register = () => {
                 title={showPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
                 disabled={loading}
             >
-               {/* 💡 Emoji de Cadeado: 🔒 Ocultar / 🔓 Mostrar */}
                {showPassword ? '🔒' : '🔓'}
             </button>
           </div>
 
-          {/* 💡 CAMPO DE CONFIRMAR SENHA COM TOGGLE */}
           <div className="input-group password-group">
             <label htmlFor="confirmPassword">Confirmar Senha</label>
             <input
-              // 💡 Tipo controlado pelo estado
               type={showPassword ? 'text' : 'password'}
               id="confirmPassword"
               name="confirmPassword"
@@ -143,7 +134,6 @@ const Register = () => {
                 title={showPassword ? 'Ocultar Senha' : 'Mostrar Senha'}
                 disabled={loading}
             >
-               {/* 💡 Emoji de Cadeado: 🔒 Ocultar / 🔓 Mostrar */}
                {showPassword ? '🔒' : '🔓'}
             </button>
           </div>

@@ -1,5 +1,3 @@
-// frontend/src/pages/ResetPassword.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/authService';
@@ -15,7 +13,6 @@ const ResetPassword = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     
-    // 💡 NOVO ESTADO: Visibilidade da senha
     const [showPassword, setShowPassword] = useState(false); 
     
     const token = searchParams.get('token'); 
@@ -26,7 +23,6 @@ const ResetPassword = () => {
         }
     }, [token]);
     
-    // 💡 NOVA FUNÇÃO: Alternar a visibilidade
     const handleTogglePassword = () => {
         setShowPassword(prev => !prev);
     };
@@ -79,7 +75,6 @@ const ResetPassword = () => {
                 {token && !success ? (
                     <form onSubmit={handleSubmit}>
                         
-                        {/* 💡 CAMPO DE NOVA SENHA COM TOGGLE */}
                         <div className="input-group password-group">
                             <label htmlFor="password">Nova Senha</label>
                             <input
@@ -90,7 +85,6 @@ const ResetPassword = () => {
                                 required
                                 disabled={loading}
                             />
-                            {/* 💡 BOTÃO DE VISUALIZAÇÃO */}
                             <button 
                                 type="button" 
                                 className="toggle-password-btn"
@@ -102,7 +96,6 @@ const ResetPassword = () => {
                             </button>
                         </div>
                         
-                        {/* 💡 CAMPO DE CONFIRMAÇÃO DE SENHA COM TOGGLE */}
                         <div className="input-group password-group">
                             <label htmlFor="confirmPassword">Confirmar Nova Senha</label>
                             <input
@@ -113,7 +106,6 @@ const ResetPassword = () => {
                                 required
                                 disabled={loading}
                             />
-                             {/* 💡 BOTÃO DE VISUALIZAÇÃO */}
                             <button 
                                 type="button" 
                                 className="toggle-password-btn"

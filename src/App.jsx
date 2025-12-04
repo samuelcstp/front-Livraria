@@ -1,27 +1,18 @@
-// frontend/src/App.jsx (VERSÃO FINAL E LIMPA)
-
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom' 
 import { AuthProvider } from './contexts/AuthContext' 
 import PrivateRoute from './components/PrivateRoute'
 import Header from './components/Header'
-
-// PÁGINAS EXISTENTES
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Livros from './pages/Livros'
 import Reviews from './pages/Reviews'
-
-// NOVAS PÁGINAS DE RECUPERAÇÃO
 import ForgotPassword from './pages/ForgotPassword' 
 import ResetPassword from './pages/ResetPassword' 
 
 import './App.css'
 
-// -----------------------------------------------------------
-// 1. CONTEXTO E HOOK DE TEMA (MANTIDO)
-// -----------------------------------------------------------
 const ThemeContext = createContext();
 
 const getInitialTheme = () => {
@@ -37,7 +28,6 @@ const getInitialTheme = () => {
   return 'light';
 };
 
-// Componente Provedor de Tema (TOP LEVEL)
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(getInitialTheme);
 
@@ -59,12 +49,8 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-// Hook customizado para fácil consumo
 export const useTheme = () => useContext(ThemeContext); 
 
-// -----------------------------------------------------------
-// 2. COMPONENTE APP (FINAL)
-// -----------------------------------------------------------
 function App() {
   return (
     <ThemeProvider> 
@@ -72,7 +58,6 @@ function App() {
         <Router>
           <div className="app">
             
-            {/* 💡 HEADER AGORA É INCONDICIONAL, MAS sua lógica de checkAuth é condicional */}
             <Header /> 
             
             <main className="main-content">

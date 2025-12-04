@@ -15,7 +15,7 @@ const Reviews = () => {
   const [editingReview, setEditingReview] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
-  // 1. Carregar Reviews e a lista de Livros para contexto
+  // Carregar Reviews e a lista de Livros para contexto
   useEffect(() => {
     carregarTudo();
   }, []);
@@ -35,7 +35,7 @@ const Reviews = () => {
         acc[livro.id] = {
             titulo: livro.titulo,
             autor: livro.autor,
-            // 🛑 AJUSTE CRÍTICO 1: Usar a nova propriedade 'capa_caminho'
+            // Usar a nova propriedade 'capa_caminho'
             capa_caminho: livro.capa_caminho 
         };
         return acc;
@@ -137,7 +137,7 @@ const Reviews = () => {
             <ReviewCard
               key={review.id}
               review={review}
-              // 🛑 AJUSTE CRÍTICO 2: Usar 'capa_caminho' no objeto fallback
+              // Usar 'capa_caminho' no objeto fallback
               livro={livros[review.livro_id] || { titulo: 'Livro Desconhecido', capa_caminho: null }} 
               onEdit={handleEdit}
               onDelete={handleDelete}

@@ -1,31 +1,25 @@
-/* frontend/src/pages/Reviews.css (AJUSTADO PARA TEMA CLARO/ESCURO) */
-
-/* Estilo geral para o container da página */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* Estilo para o cabeçalho (Título + Botão Criar) */
 .reviews-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 10px;
-    /* 💥 CORREÇÃO: Usar variável de tema para a borda */
     border-bottom: 1px solid var(--color-border);
 }
 
 .reviews-header h1 {
     font-size: 2em;
-    /* 💥 CORREÇÃO: Usar variável de tema para a cor do título */
     color: var(--color-text-primary);
     margin: 0;
 }
 
-/* Estilo para a lista de reviews */
+
 .reviews-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -33,7 +27,6 @@
     margin-top: 20px;
 }
 
-/* Estilos para Mensagens de Feedback */
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -42,17 +35,11 @@
     border: 1px solid transparent;
 }
 
-/* Nota: Cores de alerts (sucesso/erro) geralmente permanecem as mesmas 
-   para manter a comunicação visual (verde = sucesso, vermelho = erro), 
-   mas você pode precisar ajustar a cor do texto para o tema escuro. */
-
 .alert-success {
     background-color: #d4edda;
     color: #155724; 
     border-color: #c3e6cb;
 }
-/* No tema escuro, você pode querer mudar a cor do fundo do alert: */
-/* html.dark .alert-success { background-color: #1e3a24; color: #6c9a76; border-color: #496d50; } */
 
 
 .alert-error {
@@ -60,15 +47,10 @@
     color: #721c24;
     border-color: #f5c6cb;
 }
-/* No tema escuro, você pode querer mudar a cor do fundo do alert: */
-/* html.dark .alert-error { background-color: #4e2229; color: #a96c73; border-color: #7d444c; } */
 
-
-/* Estilo para o estado vazio */
 .empty-state {
     text-align: center;
     padding: 50px;
-    /* 💥 CORREÇÃO: Usar variáveis de tema para cor do fundo e borda */
     background-color: var(--color-background-secondary); 
     border: 1px dashed var(--color-border);
     border-radius: 8px;
@@ -78,17 +60,15 @@
 
 .empty-state p {
     font-size: 1.1em;
-    /* 💥 CORREÇÃO: Usar variável de tema para a cor do texto */
     color: var(--color-text-primary);
     margin-bottom: 20px;
 }
 
-/* Estilo para o Loading */
+
 .loading {
     text-align: center;
     padding: 40px;
     font-size: 1.2em;
-    /* 💥 CORREÇÃO: Usar variável de tema (ou manter a cor de destaque, dependendo do seu esquema) */
     color: var(--color-link); 
 }
 
@@ -103,7 +83,6 @@
 }
 
 .btn-primary {
-    /* Mantendo cores primárias fixas para consistência de CTA, mas você pode usar variáveis */
     background-color: #007bff; 
     color: white;
 }

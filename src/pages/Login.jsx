@@ -1,5 +1,3 @@
-// frontend/src/pages/Login.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -15,7 +13,6 @@ const Login = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
   
-  // 💡 NOVO ESTADO: Controla a visibilidade da senha
   const [showPassword, setShowPassword] = useState(false); 
 
   // Redireciona se já estiver autenticado
@@ -30,7 +27,6 @@ const Login = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // 💡 NOVA FUNÇÃO: Alternar a visibilidade
   const handleTogglePassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -71,11 +67,9 @@ const Login = () => {
             />
           </div>
 
-          {/* 💡 CAMPO DE SENHA COM TOGGLE */}
           <div className="input-group password-group"> 
             <label htmlFor="password">Senha</label>
             <input
-              // 💡 TIPO CONTROLADO PELO ESTADO
               type={showPassword ? 'text' : 'password'}
               id="password"
               name="password"
