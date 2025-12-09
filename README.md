@@ -18,7 +18,7 @@ SPA em **React + Vite**, com estados globais para autenticação e tema.
 - **ThemeToggle.jsx**  
   Botão que alterna o tema visual.
 
-### `src/pages` (principais)
+### `src/pages` (essenciais para as novas funcionalidades)
 - **Login.jsx**  
   Formulário de login com ver senha e link para esqueci minha senha.
 
