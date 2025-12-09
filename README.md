@@ -1,33 +1,42 @@
-## Estrutura do Frontend
-SPA em **React + Vite**, com estados globais para autenticação e tema.
+### 🏗️ Arquitetura e Componentes Chave
 
-### `src/contexts`
-- **AuthContext.jsx**  
-  Gerencia o usuário logado e expõe funções de autenticação, logout, recuperação etc.
+A aplicação utiliza **React** com **Vite** e a **Context API** para gerenciamento de estado global.
 
-- **ThemeContext.jsx**  
-  Alterna entre *light* e *dark*, salvando a escolha no `localStorage`.
+---
 
-### `src/components`
-- **Header.jsx**  
-  Navegação dinâmica. Executa `checkAuth` de forma segura para não quebrar rotas sensíveis.
+### 🧩 Contextos e Serviços
 
-- **PrivateRoute.jsx**  
-  Protege rotas. Redireciona usuários deslogados para o login.
+- **contexts/AuthContext.jsx**: Gerencia o estado global do usuário (`user`) e todas as funções de autenticação.
+- **contexts/ThemeContext.jsx**: Controla o estado do tema (`light/dark`) e persiste a escolha no `localStorage`.
+- **services/authService.js**: Centraliza todas as chamadas de API para o backend relacionadas à autenticação e recuperação.
 
-- **ThemeToggle.jsx**  
-  Botão que alterna o tema visual.
+---
 
-### `src/pages` (essenciais para as novas funcionalidades)
-- **Login.jsx**  
-  Formulário de login com ver senha e link para esqueci minha senha.
+### Componentes de UI e Navegação
 
-- **Register.jsx**  
-  Registro com validação cruzada de senha.
+- **components/Header.jsx**: Barra de navegação dinâmica. Essencialmente, é o ponto de controle de sessão na aplicação.
+- **components/PrivateRoute.jsx**: Componente que protege rotas.
+- **components/ThemeToggle.jsx**: Botão que alterna o tema visual da aplicação.
 
-- **ResetPassword.jsx**  
-  Extrai o token da URL (`searchParams`) e permite definir uma nova senha.
+---
 
-### `src/services`
-- **authService.js**  
-  Centraliza todas as chamadas HTTP para o backend, mantendo os componentes limpos
+### Páginas de Conteúdo (Core Functionalities)
+
+- **pages/Home.jsx**: Página principal da aplicação.
+
+- **pages/Livros.jsx**:  
+  Lista e gerencia os registros de livros.  
+  Permite a navegação para visualização ou edição de um livro específico.
+
+- **pages/Reviews.jsx**:  
+  Exibe uma lista de todas as avaliações e comentários feitos por usuários.  
+  Interface para a interação do usuário com o conteúdo da livraria.
+
+---
+
+### Páginas de Autenticação
+
+- **pages/Login.jsx / pages/Register.jsx**: Formulários com manipulação de erros e toggle de visibilidade de senha.
+- **pages/ForgotPassword.jsx / pages/ResetPassword.jsx**: Implementam o fluxo completo de recuperação, do envio de e-mail à atualização da senha via token de URL.
+
+---
