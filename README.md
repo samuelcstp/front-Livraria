@@ -1,16 +1,33 @@
-# React + Vite
+### Estrutura do Frontend
+SPA em **React + Vite**, com estados globais para autenticação e tema.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### `src/contexts`
+- **AuthContext.jsx**  
+  Gerencia o usuário logado e expõe funções de autenticação, logout, recuperação etc.
 
-Currently, two official plugins are available:
+- **ThemeContext.jsx**  
+  Alterna entre *light* e *dark*, salvando a escolha no `localStorage`.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### `src/components`
+- **Header.jsx**  
+  Navegação dinâmica. Executa `checkAuth` de forma segura para não quebrar rotas sensíveis.
 
-## React Compiler
+- **PrivateRoute.jsx**  
+  Protege rotas. Redireciona usuários deslogados para o login.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **ThemeToggle.jsx**  
+  Botão que alterna o tema visual.
 
-## Expanding the ESLint configuration
+### `src/pages` (principais)
+- **Login.jsx**  
+  Formulário de login com ver senha e link para esqueci minha senha.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Register.jsx**  
+  Registro com validação cruzada de senha.
+
+- **ResetPassword.jsx**  
+  Extrai o token da URL (`searchParams`) e permite definir uma nova senha.
+
+### `src/services`
+- **authService.js**  
+  Centraliza todas as chamadas HTTP para o backend, mantendo os componentes limpos
