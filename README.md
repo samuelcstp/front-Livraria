@@ -1,10 +1,10 @@
-### 🏗️ Arquitetura e Componentes Chave
+### Arquitetura e Componentes Chave
 
 A aplicação utiliza **React** com **Vite** e a **Context API** para gerenciamento de estado global.
 
 ---
 
-### 🧩 Contextos e Serviços
+### Contextos e Serviços
 
 - **contexts/AuthContext.jsx**: Gerencia o estado global do usuário (`user`) e todas as funções de autenticação.
 - **contexts/ThemeContext.jsx**: Controla o estado do tema (`light/dark`) e persiste a escolha no `localStorage`.
