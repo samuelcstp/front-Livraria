@@ -12,7 +12,7 @@ A aplicação utiliza **React** com **Vite** e a **Context API** para gerenciame
 
 ---
 
-### Componentes de UI e Navegação
+### Componentes e Navegação
 
 - **components/Header.jsx**: Barra de navegação dinâmica. Essencialmente, é o ponto de controle de sessão na aplicação.
 - **components/PrivateRoute.jsx**: Componente que protege rotas.
