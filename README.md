@@ -1,4 +1,4 @@
-### Estrutura do Frontend
+## Estrutura do Frontend
 SPA em **React + Vite**, com estados globais para autenticação e tema.
 
 ### `src/contexts`
